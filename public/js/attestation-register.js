@@ -54,6 +54,7 @@ class Register {
         };
         console.log("attestation-register.js:createPublickKeyCredential:options", options);
         const newCredentials = await navigator.credentials.create(options);
+        console.log("attestation-register.js:createPublickKeyCredential:credentials", newCredentials);
         return newCredentials;
     }
 

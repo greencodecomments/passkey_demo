@@ -1,11 +1,10 @@
 const { v4: UUID } = require('uuid');
 const passport = require('passport');
 const base64url = require('base64url');
-
+const models = require('../models'); // Adjust the path as necessary
 
 class AuthController {
     passportCheck() {
-        console.log("AuthController:passportCheck");
         return passport.authenticate('webauthn', {
             failureMessage: true,
             failWithError: true
@@ -57,10 +56,16 @@ class AuthController {
         });
     }
     createChallengeFrom(store) {
-        return (req, res, next) => {
+        return async (req, res, next) => {
             console.log("AuthController:createChallengeFrom:store -", store);
+            const existingUser = await models.user.findOne({
+                where: { email: req.body.email }
+            });
 
             let userID = UUID({}, Buffer.alloc(16));
+            if (existingUser) {
+                userID = existingUser.handle;
+            }
 
             const user = {
                 id: userID, // Generate a new UUID for the user
@@ -74,7 +79,7 @@ class AuthController {
                 user.id = Buffer.from(user.id).toString('base64'); // Convert UUID to base64 for the client
                 // user.id = base64url.encode(user.id); // Convert UUID to base64 for the client
 
-                console.log("AuthController:createChallengeFrom:challenge -", challenge, user, req.body, req.body.email);
+                console.log("AuthController:createChallengeFrom:challenge -", challenge, Buffer.from(challenge).toString('base64'), user, req.body, req.body.email);
                 res.json({
                     user: user,
                     challenge: Buffer.from(challenge).toString('base64')
