@@ -63,6 +63,7 @@ class AuthController {
             });
 
             let userID = UUID({}, Buffer.alloc(16));
+            console.log("AuthController:createChallengeFrom:existingUser -", existingUser);
             if (existingUser) {
                 userID = existingUser.handle;
             }
