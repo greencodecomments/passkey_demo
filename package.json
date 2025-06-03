@@ -1,0 +1,29 @@
+{
+  "name": "demoapp",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "base64url": "^3.0.1",
+    "connect-session-sequelize": "^7.1.7",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.1",
+    "multer": "^2.0.0",
+    "mysql2": "^3.14.1",
+    "passport": "^0.7.0",
+    "passport-fido2-webauthn": "^0.1.0",
+    "sequelize": "^6.37.7",
+    "sequelize-cli": "^6.6.3",
+    "uuid": "^11.1.0"
+  }
+}
