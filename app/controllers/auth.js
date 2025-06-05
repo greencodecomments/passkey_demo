@@ -8,6 +8,12 @@ class AuthController {
         return passport.authenticate('webauthn', {
             failureMessage: true,
             failWithError: true
+        }, function (error, user, info) {
+            // this will execute in any case, even if a passport strategy will find an error
+            // log everything to console
+            console.log("AuthController:passportCheck():authenticate - error", error);
+            console.log("AuthController:passportCheck():authenticate - user", user);
+            console.log("AuthController:passportCheck():authenticate - info", info);
         });
     }
 
