@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const multer = require('multer');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3035;
@@ -17,6 +18,7 @@ const sessionStore = new SequelizeStore({
     expiration: 1 * 60 * 60 * 1000 //  1 hour  - Default Expiry for cookies, if not set individually on each cookie
 });
 
+app.use(cors());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
