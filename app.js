@@ -18,7 +18,12 @@ const sessionStore = new SequelizeStore({
     expiration: 1 * 60 * 60 * 1000 //  1 hour  - Default Expiry for cookies, if not set individually on each cookie
 });
 
-app.use(cors());
+const corsOptions = {
+    origin: [`localhost:${port}`, `/\.onrender\.com$/`],
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.use(cors(corsOptions));
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
