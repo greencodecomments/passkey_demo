@@ -98,8 +98,8 @@ class PassportService {
             return done(null, newUser);
         } catch (error) {
             // Rollback the transaction in case of error
-            await transaction.rollback();
             console.error('Passwort-Service: Error creating user or public key credential:', error);
+            await transaction.rollback();
             done(error);
         }
     }

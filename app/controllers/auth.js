@@ -4,8 +4,8 @@ const base64url = require('base64url');
 const models = require('../models'); // Adjust the path as necessary
 
 class AuthController {
-    passportCheck() {
-        return passport.authenticate('webauthn', {
+    passportCheckDebug(req, res, next) {  //doesn't forward to the next middleware (but does give a console log)
+        passport.authenticate('webauthn', {
             failureMessage: true,
             failWithError: true
         }, function (error, user, info) {
@@ -14,6 +14,21 @@ class AuthController {
             console.log("AuthController:passportCheck():authenticate - error", error);
             console.log("AuthController:passportCheck():authenticate - user", user);
             console.log("AuthController:passportCheck():authenticate - info", info);
+            if (!user) {
+                // If no user is found, pass the error to the next middleware
+                res.status(401).json({
+                    ok: false,
+                    message: info.message || 'Authentication failed'
+                });
+            }
+            req.user = user; // Doesn't seem to populating req.user 
+            next();
+        })(req, res, next);
+    }
+    passportCheck() {
+        return passport.authenticate('webauthn', {
+            failureMessage: true,
+            failWithError: true
         });
     }
 
