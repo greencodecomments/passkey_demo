@@ -22,7 +22,7 @@ class AuthController {
                 });
             }
             req.user = user; // Doesn't seem to populating req.user 
-            next();
+            return next();
         })(req, res, next);
     }
     passportCheck() {
