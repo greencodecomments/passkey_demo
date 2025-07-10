@@ -19,8 +19,8 @@ router.get('/login', auth.login);
 router.get('/register', auth.register);
 
 router.post('/register/public-key/challenge', auth.createChallengeFrom(sessionChallengeStore));
-// router.post('/login/public-key', auth.passportCheck(), auth.admitUser, auth.denyUser);
-router.post('/login/public-key', auth.passportCheckDebug, auth.admitUser, auth.denyUser);
+router.post('/login/public-key', auth.passportCheck(), auth.admitUser, auth.denyUser);
+//router.post('/login/public-key', auth.passportCheckDebug, auth.admitUser, auth.denyUser);
 router.post('/login/public-key/challenge', auth.getChallengeFrom(sessionChallengeStore));
 router.post('/logout', auth.logout);
 
